@@ -1,4 +1,4 @@
-cnost path = require('path');
+const path = require('path');
 const router = require('express').Router();
 
 router.get('/notes', (req, res) => {
@@ -9,4 +9,4 @@ router.get('*', (req, res) => {
     res.sendFile(path.join(_dirname, '../public/index.html'));
 });
 
-modeule.exports = router;
+module.exports = router;

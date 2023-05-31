@@ -3,16 +3,16 @@ const fs = require('fs');
 
 const uuidv1 = require('uuid/v1');
 
-const readFileAsync = util.promiseify(fs.readFile);
+const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 
-class Save {
+class Store {
     read() {
         return readFileAsync('db/db.json', 'utf8');
     }
 
     write(note) {
-        return writeFileAsync('db/db.json' JSON.stringify(note));
+        return writeFileAsync('db/db.json', JSON.stringify(note));
     }
 
     getNotes() {
@@ -36,7 +36,7 @@ class Save {
         const newNote = { title, text, id: uuidv1() };
         return this.getNotes()
         .then((notes) => [...notes, newNote])
-        .then((updatednotes) => this.write(updatedNotes))
+        .then((updatedNotes) => this.write(updatedNotes))
         .then(() => newNote);
     }
     removeNote(id) {
@@ -46,4 +46,4 @@ class Save {
     }
 }
 
-module.exports = new Save();
+module.exports = new Store();
